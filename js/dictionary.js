@@ -8,27 +8,46 @@ const words = {
 
 let mistakes = 0;
 let correctAnswers = 0;
-let loops = +prompt("Enter amount of loops you want to do: ");
+let tries = +prompt("Enter amount of tries you want to do: ");
+let translationMode = prompt("Виберіть режим перекладу (enUa або uaEn): ");
 
-mainLoop: for (let i = 0; i < loops; i++) {
-  for (const key in words) {
-    const word = words[key];
-    alert(key);
-    let input = prompt(`Input translation of ${key}: `);
+if (translationMode !== "enUa" && translationMode !== "uaEn") {
+  alert("Некоректний режим перекладу. Введіть 'enUa' або 'uaEn'.");
+} else {
+  mainLoop: for (let i = 0; i < tries; i++) {
+    for (const key in words) {
+      const word = words[key];
+      let input = "";
 
-    if (input === "" || isNaN(input) || input === "!") {
-      alert("Exiting...");
-      break mainLoop;
-    }
-    if (input === word) {
-      correctAnswers++;
-      alert("Correct!");
-    } else {
-      mistakes++;
-      alert("?");
-    }
-    alert(`${key} : ${word}`);
+      if (translationMode === "enUa") {
+        input = prompt(`Input translation of ${key}: `);
+      } else {
+        input = prompt(`Input translation of ${word}: `);
+      }
+
+      if (input === "" || isNaN(+input) || input === "!") {
+        alert("Exiting...");
+        break mainLoop;
+      }
+      if (translationMode === "enUa") {
+        if (input === word) {
+          correctAnswers++;
+          alert("Correct!");
+        } else {
+          mistakes++;
+          alert("Incorrect!");
+        }
+      } else {
+        if (input === key) {
+          correctAnswers++;
+          alert("Correct!");
+        } else {
+          mistakes++;
+          alert("Incorrect!");
+        }
+        alert(`${key} : ${word}`);
+      }
+    }   
   }
+  alert(`Mistakes: ${correctAnswers}, correct ${mistakes}`);
 }
-
-alert(`Mistakes: ${correctAnswers}, correct ${mistakes}`);
