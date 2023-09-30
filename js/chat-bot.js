@@ -9,13 +9,16 @@ const phrases = [
 ];
 
 while (true) {
-  alert("Hello there, how can I help ya?");
   let input = prompt("Enter your question: ");
-  if (input === "Бувай") {
-    alert("Exiting...");
+  if (input === "До побачення!") {
+    alert("До побачення, радий був поспілкуватися!");
     break;
-  }
-  else{
-    
+  } else if (input === "Привіт") {
+    alert("Добрий день, чим я можу вам допомогти?");
+  } else if (input === "Ти хто?") {
+    alert("Я бот Василь!");
+  } else {
+    const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+    alert(phrase);
   }
 }

@@ -1,19 +1,26 @@
 "use strict";
 
-let shipLocations = [3, 4, 5];
+let fieldLength = Math.floor(Math.random() * 7) + 5;
+let shipLength = Math.floor(Math.random() * (fieldLength - 2)) + 2;
+let shipStart = Math.floor(Math.random() * (fieldLength - shipLength + 1));
+
+let shipLocations = [];
+for (let i = 0; i < shipLength; i++) {
+  shipLocations.push(shipStart + i);
+}
+
 let sunkLocations = [];
 let guess;
 let hits = 0;
 let guesses = 0;
-let isSunk = false;
-isAlreadyHit = false;
+let isSunk = false, isAlreadyHit = false;
 
-while (isSunk == false) {
-  guess = prompt("Ваш вистріл! (введіть число від 0 до 6):");
-  if (guess < 0 || guess > 6) {
+while (!isSunk) {
+  guess = prompt(`Ваш вистріл! (введіть число від 0 до ${fieldLength}):`);
+  if (guess < 0 || guess > fieldLength) {
     alert("Введіть правильний номер!");
   } else {
-    guesses = guesses + 1;
+    guesses++;
     if (
       guess == shipLocations[0] ||
       shipLocations[1] ||
@@ -32,11 +39,7 @@ while (isSunk == false) {
       }
       alert("Влучення!");
       sunkLocations.push(guess);
-      hits = hits + 1;
-      if (hits == 3) {
-        isSunk = true;
-        alert("Ви потопили корабель!");
-      }
+      hits++;
     } else {
       alert("Промах!");
     }
